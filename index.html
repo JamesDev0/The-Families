@@ -15,13 +15,13 @@
   }
   *{box-sizing:border-box}
   html,body{margin:0;color:var(--text);background:radial-gradient(1200px 800px at 10% -10%, rgba(34,197,94,.10), transparent 60%),radial-gradient(800px 600px at 110% 10%, rgba(59,130,246,.10), transparent 60%),var(--bg);font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;font-size:12.5px;letter-spacing:.2px;height:100dvh;display:flex;justify-content:center;padding:16px;overflow:hidden}
-  .app{width:min(1260px,100%);height:calc(100dvh - 32px);background:linear-gradient(180deg,var(--panel)0%,var(--panel2)100%);border:1px solid var(--border-strong);border-radius:var(--radius-lg);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl);backdrop-filter:blur(6px)}
+  .app{width:min(1260px,100%);height:calc(100dvh - 32px);background:linear-gradient(180deg,var(--panel)0%,var(--panel2)100%);border:1px solid var(--border-strong);border-radius:var(--radius-lg);display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-xl)}
   .header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px;background:linear-gradient(180deg, rgba(31,41,55,.75), rgba(17,24,39,.55));border-bottom:1px solid var(--border-strong)}
   .footer{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-top:1px solid var(--border-strong);background:rgba(17,24,39,.75);color:var(--muted);font-size:12px}
   .logo{width:36px;height:36px;border-radius:8px;box-shadow:0 8px 18px rgba(0,0,0,.35)}
   .columns{flex:1;display:grid;grid-template-columns:1.15fr .75fr;gap:12px;padding:12px;overflow:auto}
   @media (max-width: 980px){ .columns{ grid-template-columns:1fr } }
-  .panel{background:var(--card-grad);border:1px solid var(--border-strong);border-radius:var(--radius-md);padding:10px;box-shadow:var(--shadow-md)}
+  .panel{background:var(--card-grad);border:1px solid var(--border-strong);border-radius:var(--radius-md);padding:10px;box-shadow:var(--shadow-md);margin-bottom:20px}
   .section-title{font-weight:900;margin:0 0 8px;display:flex;align-items:center;gap:10px}
   .section-title::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.18),rgba(255,255,255,0))}
   .input{width:100%;background:rgba(255,255,255,.06);border:1px solid var(--border);color:var(--text);padding:8px 10px;border-radius:10px;font-size:14px;transition:border var(--speed), box-shadow var(--speed), background var(--speed)}
@@ -42,7 +42,7 @@
   .warn{background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.45);color:#fbbf24;padding:10px 12px;border-radius:10px;font-weight:800;display:none;margin-bottom:4px}
   details{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.03);overflow:hidden;transition:opacity var(--speed)}
   details[open] summary{border-bottom:1px solid var(--border)}
-  summary{cursor:pointer;padding:12px 14px;font-weight:900;background:rgba(255,255,255,.06)}
+  summary{cursor:pointer;padding:12px 14px;font-weight:900}
   details.disabled{opacity:.55;pointer-events:none}
   .mods-grid{padding:10px}
   .subcard{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;background:rgba(255,255,255,.03)}
@@ -112,33 +112,13 @@
   <div class="columns">
     <section style="display:flex;flex-direction:column;gap:14px">
       <div id="identityWarn" class="warn">⚠️ Preencha <strong>Colaborador</strong>, <strong>Cliente</strong>, <strong>Parceria (%)</strong> e <strong>Empresa Parceira</strong> para ativar os dados.</div>
-      <div class="panel">
-        <div class="section-title">🚗 Dados</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-          <div>
-            <label for="colaborador">Colaborador</label>
-            <input id="colaborador" type="text" class="input center" placeholder="Nome do colaborador"/>
-          </div>
-          <div>
-            <label for="cliente">Cliente</label>
-            <input id="cliente" type="text" class="input center" placeholder="Nome do cliente"/>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px">
-          <div>
-            <label for="partnerPct">Parceria (%)</label>
-            <input id="partnerPct" type="number" class="input center" placeholder="0"/>
-          </div>
-          <div>
-            <label for="partnerCompany">Empresa Parceira</label>
-            <input id="partnerCompany" type="text" class="input center" placeholder="Nome da empresa"/>
-          </div>
-        </div>
-      </div>
-      <div class="panel" id="servicesPanel">
-        <div class="section-title">🧰 Serviços</div>
+
+      <!-- Blocos de Serviços 1 a 8 -->
+      <!-- Bloco 1 -->
+      <div class="panel" id="servicesPanel1">
+        <div class="section-title">🧰 Serviços 1</div>
         <div style="overflow:auto">
-          <table class="svc-table">
+          <table class="svc-table" id="svcTable1">
             <thead>
               <tr>
                 <th>Serviço</th>
@@ -147,17 +127,138 @@
                 <th style="text-align:right">Total</th>
               </tr>
             </thead>
-            <tbody id="servicesBody"></tbody>
+            <tbody id="servicesBody1"></tbody>
           </table>
         </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-weight:800">
-          <span style="color:var(--muted)">Subtotal serviços</span>
-          <span id="svcSubtotal">0,00 €</span>
+      </div>
+      <!-- Bloco 2 -->
+      <div class="panel" id="servicesPanel2">
+        <div class="section-title">🧰 Serviços 2</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable2">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody2"></tbody>
+          </table>
         </div>
       </div>
-      <div class="panel" id="totalsPanel">
+      <!-- Bloco 3 -->
+      <div class="panel" id="servicesPanel3">
+        <div class="section-title">🧰 Serviços 3</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable3">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody3"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bloco 4 -->
+      <div class="panel" id="servicesPanel4">
+        <div class="section-title">🧰 Serviços 4</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable4">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody4"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bloco 5 -->
+      <div class="panel" id="servicesPanel5">
+        <div class="section-title">🧰 Serviços 5</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable5">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody5"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bloco 6 -->
+      <div class="panel" id="servicesPanel6">
+        <div class="section-title">🧰 Serviços 6</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable6">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody6"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bloco 7 -->
+      <div class="panel" id="servicesPanel7">
+        <div class="section-title">🧰 Serviços 7</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable7">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody7"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Bloco 8 -->
+      <div class="panel" id="servicesPanel8">
+        <div class="section-title">🧰 Serviços 8</div>
+        <div style="overflow:auto">
+          <table class="svc-table" id="svcTable8">
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th style="text-align:right">Preço/unid</th>
+                <th style="text-align:center">Qtd</th>
+                <th style="text-align:right">Total</th>
+              </tr>
+            </thead>
+            <tbody id="servicesBody8"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Resumo e Totais -->
+      <div style="margin-top:20px">
+        <div id="svcSubtotal" style="font-weight:700;font-size:1.2em">0,00 €</div>
+      </div>
+
+      <div id="totalsPanel">
         <div class="section-title">📊 Totais</div>
-        <div class="grid">
+        <div class="grid" style="margin-top:10px">
           <div style="color:var(--muted)">Serviços</div><div id="totSvc">0,00 €</div>
           <div style="color:var(--muted)">Taxa (baixo preço)</div><div id="totSurcharge">0,00 €</div>
           <div style="color:var(--muted)">Total bruto</div><div id="totGross">0,00 €</div>
@@ -224,8 +325,8 @@
   // ====== DADOS ======
   var RT = { mods:[], services:[], totals:{mods:0,svc:0,gross:0,discount:0,final:0} };
 
-  // ====== Serviços ======
-  const SERVICES = [
+  // ====== Serviços padrão (não usados na versão final, cada bloco tem sua própria lista) ======
+  const SERVICES_DEFAULT = [
     { name:'Kit de Reparação', price:750000 },
     { name:'CarPlay', price:5000000 },
     { name:'Tablet de Corrida', price:50000000 },
@@ -235,59 +336,98 @@
     { name:'Reprogramação', percentOfCar: SERVICE_REMAP_PCT, toggleOnly:true }
   ];
 
-  // ====== Renderizar Serviços ======
-  function renderServices(){
-    RT.services=[]; // reset
-    var body=gid('servicesBody'); if(!body) return; body.innerHTML='';
-    SERVICES.forEach(function(svc){
-      var tr=document.createElement('tr');
-      var priceHtml = (svc.percentOfCar != null)
-        ? '<span class="price-span">'+(svc.percentOfCar*100).toFixed(2)+'% do valor</span>'
-        : '<span class="price-span">'+euro(svc.price)+'</span>';
-      var qtyCol=svc.toggleOnly
-        ? '<input type="checkbox" class="switch svc-switch" role="switch" aria-checked="false" />'
-        : '<input class="input center svc-qty" type="number" placeholder="0" min="0" style="width:72px" disabled/>';
-      tr.innerHTML='<td>'+svc.name+'</td><td style="text-align:right">'+priceHtml+'</td><td style="text-align:center">'+qtyCol+'</td><td style="text-align:right"><span class="svc-total">0,00\u00A0€</span></td>';
+  // =====================
+  // Listas específicas para cada bloco
+  // =====================
+  const SERVICES_BLOCKS_LISTS = [
+    // Bloco 1
+    [
+      { name:'Kit de Reparação', price:750000 },
+      { name:'CarPlay', price:5000000 },
+      { name:'Tablet de Corrida', price:50000000 }
+    ],
+    // Bloco 2
+    [
+      { name:'Serviço A', price:1000000 },
+      { name:'Serviço B', price:2000000 }
+    ],
+    // Bloco 3
+    [
+      { name:'Outro Serviço 1', price:3000000 },
+      { name:'Outro Serviço 2', price:4000000 }
+    ],
+    // Bloco 4
+    [
+      { name:'Serviço X', price:1500000 }
+    ],
+    // Bloco 5
+    [
+      { name:'Serviço Y', price:2500000 }
+    ],
+    // Bloco 6
+    [
+      { name:'Serviço Z', price:3500000 }
+    ],
+    // Bloco 7
+    [
+      { name:'Serviço W', price:4500000 }
+    ],
+    // Bloco 8
+    [
+      { name:'Serviço V', price:5500000 }
+    ]
+  ];
+
+  // Array para guardar os serviços de cada bloco
+  const RT_SERVICES = [ [], [], [], [], [], [], [], [] ];
+
+  // Função para renderizar cada bloco de serviços
+  function renderServiceBlock(index) {
+    const listServices = SERVICES_BLOCKS_LISTS[index]; // lista específica
+    const block = SERVICES_BLOCKS[index];
+    const body = document.getElementById(block.id);
+    if (!body) return;
+    body.innerHTML='';
+    RT_SERVICES[index]=[];
+    listServices.forEach(svc => {
+      const tr=document.createElement('tr');
+      const priceHtml = (svc.percentOfCar!=null)
+        ? `<span class="price-span">${(svc.percentOfCar*100).toFixed(2)}% do valor</span>`
+        : `<span class="price-span">${euro(svc.price)}</span>`;
+      const qtyCol=svc.toggleOnly
+        ? `<input type="checkbox" class="switch svc-switch" role="switch" aria-checked="false" />`
+        : `<input class="input center svc-qty" type="number" placeholder="0" min="0" style="width:72px" disabled/>`;
+      tr.innerHTML=`<td>${svc.name}</td><td style="text-align:right">${priceHtml}</td><td style="text-align:center">${qtyCol}</td><td style="text-align:right"><span class="svc-total">0,00 €</span></td>`;
       body.appendChild(tr);
-      var total=tr.querySelector('.svc-total');
-      var obj={name:svc.name,price:svc.price,percentOfCar:svc.percentOfCar,toggleOnly:!!svc.toggleOnly,totalEl:total};
+      const total=tr.querySelector('.svc-total');
+      const obj={
+        name:svc.name,
+        price:svc.price,
+        percentOfCar:svc.percentOfCar,
+        toggleOnly:!!svc.toggleOnly,
+        totalEl:total
+      };
       if(svc.toggleOnly){
         obj.switchEl=tr.querySelector('.svc-switch');
-        obj.switchEl.addEventListener('change', ()=>{ var on= obj.switchEl && obj.switchEl.checked; obj.switchEl.setAttribute('aria-checked', on?'true':'false'); recalcTotals(); });
+        obj.switchEl.addEventListener('change', ()=>{ const on= obj.switchEl && obj.switchEl.checked; obj.switchEl.setAttribute('aria-checked', on?'true':'false'); recalcTotalsPerBlock(index); });
       }else{
         obj.qtyEl=tr.querySelector('.svc-qty');
         obj.qtyEl.addEventListener('input', ()=>{ debouncedRecalc(); });
         obj.qtyEl.disabled=true;
       }
-      RT.services.push(obj);
+      RT_SERVICES[index].push(obj);
     });
   }
 
-  // ====== Guard e Cálculo ======
-  function identityGuard(){
-    const hasColaborador=!!(gval('colaborador')||'').trim();
-    const hasCliente=!!(gval('cliente')||'').trim();
-    const ready=hasColaborador&&hasCliente;
-    const warn=gid('identityWarn'); if(warn){ warn.style.display=ready?'none':'block'; }
-    RT.services.forEach(s=>{ 
-      if(s.qtyEl) s.qtyEl.disabled=!ready; 
-      if(s.switchEl) s.switchEl.disabled=!ready; 
-      if(!ready){ 
-        if(s.qtyEl){ s.qtyEl.value=''; } 
-        if(s.switchEl){ s.switchEl.checked=false; s.switchEl.setAttribute('aria-checked','false'); } 
-        s.totalEl.textContent=euro(0); 
-      } 
-    });
-    recalcTotals();
-  }
-
-  function recalcTotals(){
-    var modsTotal=RT.mods.reduce((s,m)=>s+onlyNum(m.priceEl.value),0);
-    var svcTotal=RT.services.reduce(function(sum,s){
-      const carValEuro=normalizeNumberInput(gval('carValue'))||0;
+  // Recalcular o total de cada bloco
+  function recalcTotalsPerBlock(index){
+    const services=RT_SERVICES[index];
+    const carValEuro=normalizeNumberInput(gval('carValue'))||0;
+    let total=0;
+    services.forEach(s=>{
       let rowTotal=0;
       if(s.toggleOnly){
-        const on=s.switchEl && s.switchEl.checked;
+        const on= s.switchEl && s.switchEl.checked;
         if(on){
           if(s.percentOfCar!=null){ rowTotal= Math.round(carValEuro*100*s.percentOfCar); }
           else{ rowTotal=s.price||0; }
@@ -300,8 +440,73 @@
         }
       }
       if(s.totalEl){ s.totalEl.textContent=euro(rowTotal); }
-      return sum+rowTotal;
-    },0);
+      total+=rowTotal;
+    });
+    document.getElementById(RT_BLOCK_TOTAL_ID(index)).textContent=euro(total);
+    recalcGrandTotal();
+  }
+
+  function RT_BLOCK_TOTAL_ID(index){
+    return 'svcSubtotal'+(index+1);
+  }
+
+  function recalcGrandTotal() {
+    let totalServices=0;
+    for(let i=0;i<8;i++){
+      const text=document.getElementById(RT_BLOCK_TOTAL_ID(i)).textContent;
+      totalServices+=normalizeNumberInput(text);
+    }
+    gid('totSvc').textContent=euro(totalServices);
+    recalcTotals();
+  }
+
+  // ====== Guard e Cálculo ======
+  function identityGuard(){
+    const hasColaborador=!!(gval('colaborador')||'').trim();
+    const hasCliente=!!(gval('cliente')||'').trim();
+    const ready=hasColaborador&&hasCliente;
+    const warn=gid('identityWarn'); if(warn){ warn.style.display=ready?'none':'block'; }
+    for(let i=0;i<8;i++){
+      RT_SERVICES[i].forEach(s=>{ 
+        if(s.qtyEl) s.qtyEl.disabled=!ready; 
+        if(s.switchEl) s.switchEl.disabled=!ready; 
+        if(!ready){ 
+          if(s.qtyEl){ s.qtyEl.value=''; } 
+          if(s.switchEl){ s.switchEl.checked=false; s.switchEl.setAttribute('aria-checked','false'); } 
+          s.totalEl.textContent=euro(0); 
+        } 
+      });
+    }
+    recalcTotals();
+  }
+
+  function recalcTotals(){
+    const modsTotal=RT.mods.reduce((s,m)=>s+onlyNum(m.priceEl.value),0);
+    const carValEuro=normalizeNumberInput(gval('carValue'))||0;
+    let svcTotal=0;
+
+    for(let i=0;i<8;i++){
+      const s=RT_SERVICES[i];
+      s.forEach(svc=>{
+        let rowTotal=0;
+        if(svc.toggleOnly){
+          const on=svc.switchEl && svc.switchEl.checked;
+          if(on){
+            if(svc.percentOfCar!=null){ rowTotal= Math.round(carValEuro*100*svc.percentOfCar); }
+            else{ rowTotal=svc.price||0; }
+          }
+        }else{
+          const q=Number(svc.qtyEl?(svc.qtyEl.value||0):0);
+          if(q>0){
+            const unit= (svc.percentOfCar!=null)? Math.round(carValEuro*100*svc.percentOfCar):(svc.price||0);
+            rowTotal=q*unit;
+          }
+        }
+        if(svc.totalEl){ svc.totalEl.textContent=euro(rowTotal); }
+        svcTotal+=rowTotal;
+      });
+    }
+
     const baseGross=modsTotal+svcTotal;
     const surcharge={amount:0,pct:0,label:'—'};
     const gross=baseGross+surcharge.amount;
@@ -332,8 +537,8 @@
     }
     const s=collectSnapshot();
     const body=gid('invoiceBody'); if(!body) return;
-    // Sem oficina, versão simplificada
-    const html='<div class="inv-card">' +
+
+    let html='<div class="inv-card">' +
       '<div class="inv-head">' +
       `<div class="inv-row"><div class="inv-key">🗓️ Data/Hora</div><div class="inv-val">${new Date(s.date).toLocaleString('pt-PT')}</div></div>` +
       `<div class="inv-row"><div class="inv-key">👤 Colaborador</div><div class="inv-val">${esc(s.collaborator||'—')}</div></div>` +
@@ -341,18 +546,24 @@
       `<div class="inv-row"><div class="inv-key">🤝 Parceria</div><div class="inv-val">${esc(s.partnerCompany||'—')} (${s.partnerPct}%)</div></div>` +
       `<div class="inv-row"><div class="inv-key">🚘 Valor do veículo</div><div class="inv-val">${euro(s.carVal)}</div></div>` +
       '</div>' +
-      '<div class="inv-scroll">' +
-      '<div class="inv-section"><span>Serviços</span></div>' +
-      '<div class="inv-list">' +
-      (s.services.lines.length ? s.services.lines.map(s => `<div class="inv-line"><div class="name">${esc(s.name)}</div><div class="price">${euro(s.total)}</div></div>`).join('') : '<div class="inv-line"><div class="name" style="color:#9ca3af">Sem serviços</div><div class="price">—</div></div>') +
-      '</div>' +
+      '<div class="inv-scroll">';
+
+    // Adiciona os serviços de cada bloco na fatura
+    for(let i=0; i<8; i++){
+      const s=RT_SERVICES[i];
+      if(s.length){
+        html+=`<div class="inv-section"><span>Serviços ${i+1}</span></div>`;
+        html+=s.map(s => `<div class="inv-line"><div class="name">${esc(s.name)}</div><div class="price">${euro(s.totalEl.textContent)}</div></div>`).join('');
+      }
+    }
+
+    html+=
       '<div class="inv-section"><span>Totais</span></div>' +
       '<div class="inv-total-row"><div class="label">💰 Total bruto</div><div>' + euro(s.gross) + '</div></div>' +
       '<div class="inv-total-row"><div class="label">🔻 Desconto</div><div>' + euro(s.discount) + '</div></div>' +
       '<div class="inv-total-row"><div class="label">✅ Total a pagar</div><div>' + euro(s.final) + '</div></div>' +
       '<div class="inv-note">Gerado em ' + new Date(s.date).toLocaleString('pt-PT') + '</div>' +
-      '<div class="inv-actions"><button class="btn btn-primary" id="emitInvoiceBtn">🧾 Emitir Fatura</button></div>' +
-      '</div></div>';
+      '<div class="inv-actions"><button class="btn btn-primary" id="emitInvoiceBtn">🧾 Emitir Fatura</button></div></div>';
 
     gid('invoiceBody').innerHTML=html;
     document.getElementById('invoiceModal').classList.add('open');
@@ -360,9 +571,9 @@
       sendToWebhook(s).then(()=>{ alert('Fatura enviada para o Discord.'); }).catch(e=>{console.error(e); alert('Erro ao enviar. Veja a consola.'); });
     }
   }
-  
+
   // ====== Collecta de Dados ======
-  function collectSnapshot(){
+  function collectSnapshot() {
     function txt(id){ var v=gval(id)||''; return v.trim(); }
     const carValEuro=normalizeNumberInput(gval('carValue'));
     const carVal=Math.round(carValEuro*100);
@@ -375,30 +586,30 @@
     const mods={lines:[], total:0};
 
     // Serviços
-    const lines=[];
-    RT.services.forEach(s => {
-      if(s.toggleOnly){
-        if(s.switchEl && s.switchEl.checked){
-          const unit=(s.percentOfCar!=null)? Math.round(carValEuro*100*s.percentOfCar): (s.price||0);
-          lines.push({name:s.name, qty:1, unit:unit, total:unit});
+    const services={lines:[], total:0};
+    for(let i=0; i<8; i++){
+      RT_SERVICES[i].forEach(s => {
+        if(s.toggleOnly){
+          if(s.switchEl && s.switchEl.checked){
+            const unit=(s.percentOfCar!=null)? Math.round(carValEuro*100*s.percentOfCar): (s.price||0);
+            services.lines.push({name:s.name, qty:1, unit:unit, total:unit});
+          }
+        }else{
+          const q=Number(s.qtyEl?(s.qtyEl.value||0):0);
+          if(q>0){
+            const unit=(s.percentOfCar!=null)? Math.round(carValEuro*100*s.percentOfCar): (s.price||0);
+            services.lines.push({name:s.name, qty:q, unit:unit, total:q*unit});
+          }
         }
-      }else{
-        const q=Number(s.qtyEl?(s.qtyEl.value||0):0);
-        if(q>0){
-          const unit=(s.percentOfCar!=null)? Math.round(carValEuro*100*s.percentOfCar): (s.price||0);
-          lines.push({name:s.name, qty:q, unit:unit, total:q*unit});
-        }
-      }
-    });
-    const services={lines:lines, total: lines.reduce((a,b)=>a+b.total,0)};
-
+      });
+    }
+    const servicesTotal=services.lines.reduce((a,b)=>a+b.total,0);
     const modsTotal=0;
-    const baseGross=services.total+modsTotal;
+    const baseGross=servicesTotal+modsTotal;
     const surcharge={amount:0,pct:0,label:'—'};
     const gross=baseGross+surcharge.amount;
     const discount=Math.round(gross*partnerPct/100);
     const final=Math.max(0,gross-discount);
-
     return {date:new Date().toISOString(), collaborator:collaborator, client:client, partnerCompany:partnerCompany, carVal:carVal, partnerPct:partnerPct, services:services, mods:{lines:[], total:0}, surcharge:surcharge, gross:gross, discount:discount, final:final};
   }
 
@@ -415,7 +626,12 @@
         if(snap.partnerCompany) info.push(`**🤝 Parceria:** ${snap.partnerCompany} (${snap.partnerPct||0}%)`);
         info.push(`**🚘 Valor do veículo:** ${euro(snap.carVal)}`);
 
-        const svcsDesc=snap.services.lines.length ? snap.services.lines.map(s => `• ${s.name}${s.qty>1?` × ${s.qty}`:''} — ${euro(s.total)}`).join('\n') : '• —';
+        let svcsDesc='';
+        if(snap.services.lines.length){
+          svcsDesc=snap.services.lines.map(s => `• ${s.name}${s.qty>1?` × ${s.qty}`:''} — ${euro(s.total)}`).join('\n');
+        }else{
+          svcsDesc='• —';
+        }
 
         const totalsBlock=[
           '**💰 Totais**',
@@ -448,20 +664,29 @@
   function clearAll(){
     ['cliente','carValue','partnerPct','partnerCompany'].forEach(id=>{ var el=gid(id); if(el) el.value=''; });
     RT.mods.forEach(m=>{ m.toggle.checked=false; m.toggle.setAttribute('aria-checked','false'); m.priceEl.value=euro(0); });
-    RT.services.forEach(s=>{ if(s.qtyEl){ s.qtyEl.value=''; s.qtyEl.disabled=true; } if(s.switchEl){ s.switchEl.checked=false; s.switchEl.setAttribute('aria-checked','false'); } s.totalEl.textContent=euro(0); });
+    for(let i=0;i<8;i++){
+      RT_SERVICES[i].forEach(s=>{
+        if(s.qtyEl){ s.qtyEl.value=''; s.qtyEl.disabled=true; }
+        if(s.switchEl){ s.switchEl.checked=false; s.switchEl.setAttribute('aria-checked','false'); }
+        s.totalEl.textContent=euro(0);
+      });
+    }
     identityGuard(); recalcTotals();
   }
 
   // ====== Iniciar ======
   function wire(){
-    window.__clockTimer = setInterval(()=>{ var el=gid('clock'); if(el) el.textContent=new Date().toLocaleString('pt-PT'); },1000);
-    renderServices();
+    window.__clockTimer = setInterval(()=>{ var el=gid('clock'); if(el) el.textContent=new Date().toLocaleString('pt-PT'); });
+    // Renderizar todos os blocos com suas próprias listas
+    for(let i=0; i<8; i++){
+      renderServiceBlock(i);
+    }
     document.getElementById('showInvoice').addEventListener('click', openInvoice);
     document.getElementById('clearFields').addEventListener('click', clearAll);
     document.getElementById('closeInvoiceBtn').addEventListener('click', ()=>{ document.getElementById('invoiceModal').classList.remove('open'); });
     document.getElementById('invoiceModal').addEventListener('click', e=>{ if(e.target.id==='invoiceModal') e.currentTarget.classList.remove('open'); });
     ['colaborador','cliente'].forEach(id=>{ document.getElementById(id).addEventListener('input', identityGuard); });
-    document.getElementById('carValue').addEventListener('input', ()=>{ identityGuard(); RT.mods.forEach(m=>{ if(m.toggle&&m.toggle.checked) updateModPrice(m,m.priceEl,m.toggle); }); debouncedRecalc(); });
+    document.getElementById('carValue').addEventListener('input', ()=>{ identityGuard(); for(let i=0;i<8;i++) { RT_SERVICES[i].forEach(s=>{ if(s.toggleOnly&&s.toggle.checked) updateModPrice(s,s.priceEl,s.toggle); }); } debouncedRecalc(); });
     document.getElementById('partnerPct').addEventListener('input', ()=>{ debouncedRecalc(); });
     document.getElementById('partnerPct').addEventListener('blur', ()=>{ const v=clampPct(normalizeNumberInput(document.getElementById('partnerPct').value)); document.getElementById('partnerPct').value=String(v); recalcTotals(); });
     // Valor do carro
@@ -469,7 +694,11 @@
     document.addEventListener('focusin', e=>{ if(e.target.classList?.contains('svc-qty')) e.target.select(); });
     identityGuard();
   }
-  document.addEventListener('DOMContentLoaded', wire);
+  document.addEventListener('DOMContentLoaded', ()=> {
+    wire();
+  });
   // Impedir valores negativos/decimais em Qtd
   document.addEventListener('input', e=>{ if(e.target.classList?.contains('svc-qty')){ var v=Math.max(0,parseInt(e.target.value||'0',10)||0); if(String(v)!==e.target.value){ e.target.value=String(v); } } });
 </script>
+</body>
+</html>
