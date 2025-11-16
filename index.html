@@ -110,8 +110,8 @@
 		<div style="display:flex;align-items:center;gap:14px;">
 			<img class="logo" src="https://i.imgur.com/RwYDIAZ.png" alt="Logo RedLine Performance" />
 		<div>
-      <div style="font-weight:900;letter-spacing:.2px">The Families</div>
-      <div style="font-size:12px;color:var(--muted)">Tabelas</div>
+      <div style="font-weight:900;letter-spacing:.2px">RedLine Performance</div>
+      <div style="font-size:12px;color:var(--muted)">Sistema de Faturas - V2</div>
     </div>
   </div>
 
@@ -139,7 +139,7 @@
     <div class="columns">
       <section>
         <details id="detailsOficina" open>
-          <summary>🔫 The Families</summary>
+          <summary>🏠 Oficina</summary>
           <div id="modsContainer" class="mods-grid"></div>
         </details>
       </section>
@@ -234,7 +234,8 @@
   <script>
     // ====== CONFIG ======
     const WEBHOOK_URL = 'https://discord.com/api/webhooks/1424102295989260290/O551-zFM41O1NWTm_f7eALRbe2nqn-JUUq-0lvwY6HQwt3DfSnYc8R9WK932zf3v2ry4';
-
+    // var SERVICE_OUT_PRICE_PER_KM = 750; // 7,50 € por km (cêntimos)
+    const SERVICE_REMAP_PCT = 0.08; // 8% do valor do veículo (editável)
 
 	// === REGRAS DE TAXA EXTRA POR BAIXA DE PREÇO DO VEÍCULO ===
 	const SURCHARGE_RULES = [
