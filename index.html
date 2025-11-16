@@ -112,11 +112,29 @@
   <div class="columns">
     <section style="display:flex;flex-direction:column;gap:14px">
       <div id="identityWarn" class="warn">⚠️ Preencha <strong>Colaborador</strong>, <strong>Cliente</strong>, <strong>Parceria (%)</strong> e <strong>Empresa Parceira</strong> para ativar os dados.</div>
-
-      <!-- Blocos de Serviços 1 a 8 -->
-      <!-- Cada bloco tem sua própria lista de serviços e elementos -->
-      
-      <!-- Bloco 1 -->
+      <div class="panel">
+        <div class="section-title">🚗 Dados</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div>
+            <label for="colaborador">Colaborador</label>
+            <input id="colaborador" type="text" class="input center" placeholder="Nome do colaborador"/>
+          </div>
+          <div>
+            <label for="cliente">Cliente</label>
+            <input id="cliente" type="text" class="input center" placeholder="Nome do cliente"/>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px">
+          <div>
+            <label for="partnerPct">Parceria (%)</label>
+            <input id="partnerPct" type="number" class="input center" placeholder="0"/>
+          </div>
+          <div>
+            <label for="partnerCompany">Empresa Parceira</label>
+            <input id="partnerCompany" type="text" class="input center" placeholder="Nome da empresa"/>
+          </div>
+        </div>
+      </div>
       <div class="panel" id="servicesPanel1">
         <div class="section-title">🧰 Serviços 1</div>
         <div style="overflow:auto">
