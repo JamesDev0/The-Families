@@ -267,9 +267,7 @@
   function identityGuard(){
     const hasColaborador=!!(gval('colaborador')||'').trim();
     const hasCliente=!!(gval('cliente')||'').trim();
-    const carVal=normalizeNumberInput(gval('carValue'));
-    const hasCarValue=isFinite(carVal)&&carVal>0;
-    const ready=hasColaborador&&hasCliente&&hasCarValue;
+    const ready=hasColaborador&&hasCliente;
     const warn=gid('identityWarn'); if(warn){ warn.style.display=ready?'none':'block'; }
     RT.services.forEach(s=>{ 
       if(s.qtyEl) s.qtyEl.disabled=!ready; 
