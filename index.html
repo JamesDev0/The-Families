@@ -114,6 +114,8 @@
       <div id="identityWarn" class="warn">⚠️ Preencha <strong>Colaborador</strong>, <strong>Cliente</strong>, <strong>Parceria (%)</strong> e <strong>Empresa Parceira</strong> para ativar os dados.</div>
 
       <!-- Blocos de Serviços 1 a 8 -->
+      <!-- Cada bloco tem sua própria lista de serviços e elementos -->
+      
       <!-- Bloco 1 -->
       <div class="panel" id="servicesPanel1">
         <div class="section-title">🧰 Serviços 1</div>
@@ -325,17 +327,6 @@
   // ====== DADOS ======
   var RT = { mods:[], services:[], totals:{mods:0,svc:0,gross:0,discount:0,final:0} };
 
-  // ====== Serviços padrão (não usados na versão final, cada bloco tem sua própria lista) ======
-  const SERVICES_DEFAULT = [
-    { name:'Kit de Reparação', price:750000 },
-    { name:'CarPlay', price:5000000 },
-    { name:'Tablet de Corrida', price:50000000 },
-    { name:'Boosting Tablet', price:50000000 },
-    { name:'GPS Hacking', price:7500000 },
-    { name:'Hacking Device', price:7500000 },
-    { name:'Reprogramação', percentOfCar: SERVICE_REMAP_PCT, toggleOnly:true }
-  ];
-
   // =====================
   // Listas específicas para cada bloco
   // =====================
@@ -384,8 +375,7 @@
   // Função para renderizar cada bloco de serviços
   function renderServiceBlock(index) {
     const listServices = SERVICES_BLOCKS_LISTS[index]; // lista específica
-    const block = SERVICES_BLOCKS[index];
-    const body = document.getElementById(block.id);
+    const body = document.getElementById(`servicesBody${index+1}`);
     if (!body) return;
     body.innerHTML='';
     RT_SERVICES[index]=[];
@@ -442,18 +432,15 @@
       if(s.totalEl){ s.totalEl.textContent=euro(rowTotal); }
       total+=rowTotal;
     });
-    document.getElementById(RT_BLOCK_TOTAL_ID(index)).textContent=euro(total);
+    document.getElementById(`svcSubtotal${index+1}`).textContent=euro(total);
     recalcGrandTotal();
   }
 
-  function RT_BLOCK_TOTAL_ID(index){
-    return 'svcSubtotal'+(index+1);
-  }
-
+  // Recalcular o total geral
   function recalcGrandTotal() {
     let totalServices=0;
     for(let i=0;i<8;i++){
-      const text=document.getElementById(RT_BLOCK_TOTAL_ID(i)).textContent;
+      const text=document.getElementById(`svcSubtotal${i+1}`).textContent;
       totalServices+=normalizeNumberInput(text);
     }
     gid('totSvc').textContent=euro(totalServices);
