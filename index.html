@@ -205,57 +205,45 @@
     function debounce(fn,ms=80){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
 
     // ====== DADOS ======
-    var OFICINA = [
-      {label:'Drogas Civil (Preço Mínimo)', items:[
-	    { name:'Erva', price:300 },
-        { name:'Coca', price:800 },
-        { name:'Meta', price:940 },
-        { name:'Heroína', price:900 }
+     var OFICINA = [
+      {label:'KITS ESTÉTICA', items:[
+        {name:'Escape', pct:0.0152}, 
+		{name:'Frame', pct:0.0152}, 
+		{name:'Parachoques frontal',pct:0.0152}, 
+		{name:'Grelha frontal', pct:0.0152}, 
+		{name:'Capô', pct:0.0152}, 
+		{name:'Guarda-lama Esquerdo', pct:0.016}, 
+		{name:'Parachoques traseiro', pct:0.016}, 
+		{name:'Guarda-lama dianteiro', pct:0.016}, 
+		{name:'Tejadilho', pct:0.016}, 
+		{name:'Saias', pct:0.0155}, 
+		{name:'Spoiler', pct:0.016}
       ]},
-      {label:'Drogas Civil (Preço Máximo)', items:[
-	    { name:'Erva', price:500 },
-        { name:'Coca', price:1200 },
-        { name:'Meta', price:1500 },
-        { name:'Heroína', price:1300 }
+      {label:'CORES', items:[
+        {name:'Luzes frontais', pct:0.0025}, 
+		{name:'Interior', pct:0.00025}, 
+		{name:'Luzes neon', pct:0.0025}, 
+		{name:'Perolado', pct:0.0015}, 
+		{name:'Primária', pct:0.0050}, 
+		{name:'Secundária', pct:0.00025}, 
+		{name:'Fumo de pneus', pct:0.0015}, 
+		{name:'Cor jantes', pct:0.00025}
       ]},
-		{label:'Venda Droga (Bairro)', items:[
-	    { name:'Erva', price:834 },
-        { name:'Coca', price:1700 },
-        { name:'Meta', price:1940 },
-        { name:'Heroína', price:1800 }
+	  {label:'EXTRAS', items:[
+		{name:'Extra', pct:0.013}
       ]},
-      {label:'Mercado Negro', items:[
-	    { name:'Carga Térmica', price:85000 },
-        { name:'Máquina de Furar', price:85000 },
-        { name:'Máquina Laser', price:127500 },
-	    { name:'C4', price:85000 },
-		{ name:'Laptop', price:85000 },
-		{ name:'Hack USB', price:85000 },
-		{ name:'Mochila', price:21250 },
-		{ name:'Switchblade', price:42500 },
-		{ name:'Mascara de Gas', price:63750 },
-		{ name:'BZ Gas', price:127500 },
-		{ name:'Corda', price:2550 },
-		{ name:'Chave', price:850 },
-		{ name:'Handcuffs', price:8500 },
-		{ name:'Venda', price:4250 },
-		{ name:'Drone', price:1487500 },
-		{ name:'Lockpick', price:5000 },
-        { name:'Taco de Baseball', price:12500 }
-	]},
-      {label:'Preçario Armas (ORG)', items:[
-	    { name:'SNS PISTOL', price:40000 },
-        { name:'.50', price:70000 },
-        { name:'TEC 9', price:345000 },
-	    { name:'MICRO SMG', price:249000 },
-		{ name:'PDW', price:300000 },
-		{ name:'MINI DRAKO', price:345000 },
-		{ name:'TOMMY GUN', price:360000 },
-		{ name:'TATICAL SHOTGUN', price:405000 },
-		{ name:'QBZ', price:475000 },
-		{ name:'G3', price:550000 },
-		{ name:'AK-47', price:500000 },
-		{ name:'AK-12', price:800000 }
+      {label:'OUTROS', items:[
+        {name:'Buzina', pct:0.00075}, 
+		{name:'Estampas', pct:0.0093}, 
+		{name:'Matrículas', pct:0.00080}, 
+		{name:'Vidros', pct:0.0135}
+      ]},
+      {label:'MELHORIAS', items:[
+        {name:'Blindagem N1', pct:0.057, armor:true}, 
+		{name:'Blindagem N2', pct:0.077, armor:true},
+		{name:'Blindagem N3', pct:0.097, armor:true}, 
+		{name:'Blindagem N4', pct:0.157, armor:true}, 
+		{name:'Blindagem N5', pct:0.207, armor:true}
       ]},
       {label:'JANTES', items:[{name:'Tipo de jantes', pct:0.0075}]}
     ];
