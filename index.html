@@ -194,6 +194,19 @@
     // ====== CONFIG ======
     const WEBHOOK_URL = 'https://discord.com/api/webhooks/1424102295989260290/O551-zFM41O1NWTm_f7eALRbe2nqn-JUUq-0lvwY6HQwt3DfSnYc8R9WK932zf3v2ry4';
 
+
+	// === REGRAS DE TAXA EXTRA POR BAIXA DE PREÇO DO VEÍCULO ===
+	const SURCHARGE_RULES = [
+		{ to:  50000,    pct: 0.09,  label: '0–50.000 € (9 %)' },
+		{ to: 150000,    pct: 0.06,  label: '50.000–150.000 € (6 %)' },
+		{ to: 500000,    pct: 0.05,  label: '150.000–500.000 € (5 %)' },
+		{ to: 1000000,   pct: 0.035, label: '500.000–1.000.000 € (3,5 %)' },
+		{ to: 3000000,   pct: 0.025, label: '1.000.000–3.000.000 € (2,5 %)' },
+		{ to: 7000000,   pct: 0.015, label: '3.000.000–7.000.000 € (1,5 %)' },
+		{ to: 20000000,  pct: 0.0075,label: '7.000.000–20.000.000 € (0,75 %)' },
+		{ to: Infinity,  pct: 0,     label: '> 20.000.000 € (0 %)' }
+			];
+
     // ====== UTIL ======
     function euro(n){ n=(isNaN(n)?0:n); var sign=n<0?'-':''; n=Math.abs(n); var euros=Math.floor(n/100); var cents=String(n%100).padStart(2,'0'); var intStr=String(euros).replace(/\B(?=(\d{3})+(?!\d))/g,'\u00A0'); return sign+intStr+','+cents+'\u00A0€'; }
     function esc(s){ const map={'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}; return String(s??'').replace(/[&<>"']/g, m=>map[m]); }
@@ -204,8 +217,15 @@
     function clampPct(v){ v=isFinite(v)?v:0; return Math.max(0, Math.min(100, v)); }
     function debounce(fn,ms=80){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; }
 
+    // Calcula a taxa extra baseada nas faixas de preço do veículo
+    function getSurchargeInfo(carValEuro){
+      const rule = (SURCHARGE_RULES || []).find(r => carValEuro <= r.to) || { pct:0, label:'—' };
+      const amount = Math.round((carValEuro||0) * 100 * (rule.pct||0));
+      return { amount, pct: rule.pct||0, label: rule.label || '' };
+    }
+
     // ====== DADOS ======
-     var OFICINA = [
+    var OFICINA = [
       {label:'KITS ESTÉTICA', items:[
         {name:'Escape', pct:0.0152}, 
 		{name:'Frame', pct:0.0152}, 
@@ -258,7 +278,7 @@
       { name:'Reprogramação', percentOfCar: SERVICE_REMAP_PCT, toggleOnly:true }
       // { name:'Serviço Fora (€/km)', price:SERVICE_OUT_PRICE_PER_KM }
     ];
-
+	  
     // ====== RUNTIME ======
     var RT = { mods:[], services:[], totals:{mods:0,svc:0,gross:0,discount:0,final:0} };
 
