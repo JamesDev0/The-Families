@@ -139,7 +139,7 @@
     <div class="columns">
       <section>
         <details id="detailsOficina" open>
-          <summary>🏠 Oficina</summary>
+          <summary>🔫 The Families</summary>
           <div id="modsContainer" class="mods-grid"></div>
         </details>
       </section>
@@ -148,22 +148,18 @@
         <div id="identityWarn" class="warn">⚠️ Preencha <strong>Colaborador</strong>, <strong>Cliente</strong> e o <strong>Valor do veículo</strong> para ativar Oficina e Serviços.</div>
 
         <div class="panel">
-          <div class="section-title">🚗 Dados</div>
+          <div class="section-title">Dados</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div>
-              <label for="colaborador">Colaborador</label>
+              <label for="colaborador">Membro</label>
               <input id="colaborador" type="text" class="input center" placeholder="Nome do colaborador"/>
             </div>
             <div>
-              <label for="cliente">Cliente</label>
+              <label for="cliente">Comprador</label>
               <input id="cliente" type="text" class="input center" placeholder="Nome do cliente"/>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px">
-            <div>
-              <label for="carValue">Valor do veículo</label>
-              <input id="carValue" type="number" class="input center" placeholder="Insira o valor do carro"/>
-            </div>
             <div>
               <label for="partnerPct">Parceria (%)</label>
               <input id="partnerPct" type="number" class="input center" placeholder="0"/>
@@ -172,27 +168,6 @@
               <label for="partnerCompany">Empresa Parceira</label>
               <input id="partnerCompany" type="text" class="input center" placeholder="Nome da empresa"/>
             </div>
-          </div>
-        </div>
-
-        <div class="panel" id="servicesPanel">
-          <div class="section-title">🧰 Serviços</div>
-          <div style="overflow:auto">
-            <table class="svc-table">
-              <thead>
-                <tr>
-                  <th>Serviço</th>
-                  <th style="text-align:right">Preço/unid</th>
-                  <th style="text-align:center">Qtd</th>
-                  <th style="text-align:right">Total</th>
-                </tr>
-              </thead>
-              <tbody id="servicesBody"></tbody>
-            </table>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-weight:800">
-            <span style="color:var(--muted)">Subtotal serviços</span>
-            <span id="svcSubtotal">0,00 €</span>
           </div>
         </div>
 
