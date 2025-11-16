@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Families</title>
+  <title>RedLine Performance – Faturação</title>
   <style>
     :root{
       --bg: #0b1020; --panel: #111827; --panel2: #0b1220; --text: #e5e7eb; --muted: #9ca3af;
@@ -110,7 +110,7 @@
 		<div style="display:flex;align-items:center;gap:14px;">
 			<img class="logo" src="https://i.imgur.com/RwYDIAZ.png" alt="Logo RedLine Performance" />
 		<div>
-      <div style="font-weight:900;letter-spacing:.2px">The Families1</div>
+      <div style="font-weight:900;letter-spacing:.2px">The Families</div>
       <div style="font-size:12px;color:var(--muted)">Tabelas</div>
     </div>
   </div>
@@ -118,6 +118,22 @@
   <!-- LADO DIREITO: botão discreto + relógio -->
   <div style="display:flex;align-items:center;gap:12px;">
 
+    <!-- BOTÃO DISCRETO -->
+    <a href="carros.html"
+       style="
+         font-size:12px;
+         padding:5px 12px;
+         border-radius:6px;
+         background:#2a2f3a;
+         color:#cdd4e0;
+         border:1px solid #3a4150;
+         text-decoration:none;
+         transition:0.2s;
+       "
+       onmouseover="this.style.background='#363c49'"
+       onmouseout="this.style.background='#2a2f3a'">
+      Carros
+    </a>
   </div>
 </header>
     <div class="columns">
@@ -129,21 +145,25 @@
       </section>
 
       <section style="display:flex;flex-direction:column;gap:14px">
-        <div id="identityWarn" class="warn">⚠️ Preencha <strong>Membro</strong> e <strong>Comprador</strong> para ativar os menus.</div>
+        <div id="identityWarn" class="warn">⚠️ Preencha <strong>Colaborador</strong>, <strong>Cliente</strong> e o <strong>Valor do veículo</strong> para ativar Oficina e Serviços.</div>
 
         <div class="panel">
-          <div class="section-title">Dados</div>
+          <div class="section-title">🚗 Dados</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
             <div>
-              <label for="colaborador">Membro</label>
+              <label for="colaborador">Colaborador</label>
               <input id="colaborador" type="text" class="input center" placeholder="Nome do colaborador"/>
             </div>
             <div>
-              <label for="cliente">Comprador</label>
+              <label for="cliente">Cliente</label>
               <input id="cliente" type="text" class="input center" placeholder="Nome do cliente"/>
             </div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px">
+            <div>
+              <label for="carValue">Valor do veículo</label>
+              <input id="carValue" type="number" class="input center" placeholder="Insira o valor do carro"/>
+            </div>
             <div>
               <label for="partnerPct">Parceria (%)</label>
               <input id="partnerPct" type="number" class="input center" placeholder="0"/>
@@ -152,6 +172,27 @@
               <label for="partnerCompany">Empresa Parceira</label>
               <input id="partnerCompany" type="text" class="input center" placeholder="Nome da empresa"/>
             </div>
+          </div>
+        </div>
+
+        <div class="panel" id="servicesPanel">
+          <div class="section-title">🧰 Serviços</div>
+          <div style="overflow:auto">
+            <table class="svc-table">
+              <thead>
+                <tr>
+                  <th>Serviço</th>
+                  <th style="text-align:right">Preço/unid</th>
+                  <th style="text-align:center">Qtd</th>
+                  <th style="text-align:right">Total</th>
+                </tr>
+              </thead>
+              <tbody id="servicesBody"></tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-weight:800">
+            <span style="color:var(--muted)">Subtotal serviços</span>
+            <span id="svcSubtotal">0,00 €</span>
           </div>
         </div>
 
@@ -174,7 +215,7 @@
       </section>
     </div>
 
-    <footer class="footer">© 2025 The Families — Todos os direitos reservados</footer>
+    <footer class="footer">© 2025 RedLine Performance — Todos os direitos reservados</footer>
 
     <div id="invoiceModal" class="modal" role="dialog" aria-modal="true">
       <div class="modal-card">
@@ -278,7 +319,7 @@
       { name:'Reprogramação', percentOfCar: SERVICE_REMAP_PCT, toggleOnly:true }
       // { name:'Serviço Fora (€/km)', price:SERVICE_OUT_PRICE_PER_KM }
     ];
-	  
+
     // ====== RUNTIME ======
     var RT = { mods:[], services:[], totals:{mods:0,svc:0,gross:0,discount:0,final:0} };
 
@@ -354,8 +395,10 @@
     function identityGuard(){
       const hasColaborador = !!(gval('colaborador')||'').trim();
       const hasCliente     = !!(gval('cliente')||'').trim();
+      const carVal         = normalizeNumberInput(gval('carValue'));
+      const hasCarValue    = isFinite(carVal) && carVal > 0;
 
-      const ready = hasColaborador && hasCliente;
+      const ready = hasColaborador && hasCliente && hasCarValue;
 
       const warn = gid('identityWarn'); if(warn){ warn.style.display = ready ? 'none' : 'block'; }
 
